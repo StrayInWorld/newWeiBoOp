@@ -78,13 +78,15 @@ class weiBoOpClass(object):
          if byWhich=="xpath":
              try:
                  return self.driver.find_element_by_xpath(value)
-             except:
+             except WebDriverException:
+                 print("没有找到节点，准备移动")
                  self.movePage(1)
                  return self.driver.find_element_by_xpath(value)
          else:
              try:
                  return self.driver.find_element_by_css_selector(value)
-             except:
+             except WebDriverException:
+                 print("没有找到节点，准备移动")
                  self.movePage(1)
                  return self.driver.find_element_by_css_selector(value)
 
@@ -242,6 +244,8 @@ while True:
     except WebDriverException as e:
         print("异常", e)
         print("没有找到位置")
+    except ConnectionAbortedError as e:
+        print("异常",e)
     finally:
         print("重新运行")
         classDriver.driver.quit()

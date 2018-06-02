@@ -2,19 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c331aa60-2012-4fa9-a4aa-f882c342c514" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/build/weiBoOp/base_library.zip" afterPath="$PROJECT_DIR$/build/weiBoOp/base_library.zip" />
-      <change beforePath="$PROJECT_DIR$/build/weiBoOp/out00-Analysis.toc" afterPath="$PROJECT_DIR$/build/weiBoOp/out00-Analysis.toc" />
-      <change beforePath="$PROJECT_DIR$/build/weiBoOp/out00-COLLECT.toc" afterPath="$PROJECT_DIR$/build/weiBoOp/out00-COLLECT.toc" />
-      <change beforePath="$PROJECT_DIR$/build/weiBoOp/out00-EXE.toc" afterPath="$PROJECT_DIR$/build/weiBoOp/out00-EXE.toc" />
-      <change beforePath="$PROJECT_DIR$/build/weiBoOp/out00-PKG.pkg" afterPath="$PROJECT_DIR$/build/weiBoOp/out00-PKG.pkg" />
-      <change beforePath="$PROJECT_DIR$/build/weiBoOp/out00-PYZ.pyz" afterPath="$PROJECT_DIR$/build/weiBoOp/out00-PYZ.pyz" />
-      <change beforePath="$PROJECT_DIR$/build/weiBoOp/out00-PYZ.toc" afterPath="$PROJECT_DIR$/build/weiBoOp/out00-PYZ.toc" />
-      <change beforePath="$PROJECT_DIR$/build/weiBoOp/warnweiBoOp.txt" afterPath="$PROJECT_DIR$/build/weiBoOp/warnweiBoOp.txt" />
-      <change beforePath="$PROJECT_DIR$/build/weiBoOp/weiBoOp.exe" afterPath="$PROJECT_DIR$/build/weiBoOp/weiBoOp.exe" />
-      <change beforePath="$PROJECT_DIR$/dist/weiBoOp/base_library.zip" afterPath="$PROJECT_DIR$/dist/weiBoOp/base_library.zip" />
-      <change beforePath="$PROJECT_DIR$/dist/weiBoOp/weiBoOp.exe" afterPath="$PROJECT_DIR$/dist/weiBoOp/weiBoOp.exe" />
-      <change beforePath="$PROJECT_DIR$/test.py" afterPath="$PROJECT_DIR$/test.py" />
       <change beforePath="$PROJECT_DIR$/weiBoOp.py" afterPath="$PROJECT_DIR$/weiBoOp.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -39,8 +26,8 @@
       <file leaf-file-name="weiBoOp.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/weiBoOp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="98" column="33" lean-forward="true" selection-start-line="98" selection-start-column="33" selection-end-line="98" selection-end-column="33" />
+            <state relative-caret-position="387">
+              <caret line="247" column="21" lean-forward="true" selection-start-line="247" selection-start-column="21" selection-end-line="247" selection-end-column="21" />
               <folding>
                 <element signature="e#16#27#0" expanded="true" />
               </folding>
@@ -307,8 +294,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/weiBoOp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="98" column="33" lean-forward="true" selection-start-line="98" selection-start-column="33" selection-end-line="98" selection-end-column="33" />
+        <state relative-caret-position="387">
+          <caret line="247" column="21" lean-forward="true" selection-start-line="247" selection-start-column="21" selection-end-line="247" selection-end-column="21" />
           <folding>
             <element signature="e#16#27#0" expanded="true" />
           </folding>
