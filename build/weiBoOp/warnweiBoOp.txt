@@ -1,0 +1,23 @@
+missing module named resource - imported by posix, G:\newWeiBo\weiBoOp.py
+missing module named posix - imported by os, G:\newWeiBo\weiBoOp.py
+missing module named _posixsubprocess - imported by subprocess, G:\newWeiBo\weiBoOp.py
+missing module named org - imported by pickle, G:\newWeiBo\weiBoOp.py
+missing module named readline - imported by cmd, code, pdb, G:\newWeiBo\weiBoOp.py
+excluded module named _frozen_importlib - imported by importlib, importlib.abc, G:\newWeiBo\weiBoOp.py
+missing module named _frozen_importlib_external - imported by importlib._bootstrap, importlib, importlib.abc, G:\newWeiBo\weiBoOp.py
+missing module named _winreg - imported by platform, selenium.webdriver.firefox.firefox_binary, G:\newWeiBo\weiBoOp.py
+missing module named _scproxy - imported by urllib.request
+missing module named java - imported by platform, G:\newWeiBo\weiBoOp.py
+missing module named 'java.lang' - imported by platform, xml.sax._exceptions, G:\newWeiBo\weiBoOp.py
+missing module named vms_lib - imported by platform, G:\newWeiBo\weiBoOp.py
+missing module named termios - imported by tty, getpass, G:\newWeiBo\weiBoOp.py
+missing module named grp - imported by shutil, tarfile, G:\newWeiBo\weiBoOp.py
+missing module named 'org.python' - imported by copy, xml.sax, G:\newWeiBo\weiBoOp.py
+missing module named pwd - imported by posixpath, shutil, tarfile, http.server, webbrowser, netrc, getpass, G:\newWeiBo\weiBoOp.py
+missing module named _dummy_threading - imported by dummy_threading, G:\newWeiBo\weiBoOp.py
+missing module named urllib2 - imported by selenium.webdriver.common.utils, selenium.webdriver.remote.remote_connection, selenium.webdriver.common.service
+missing module named StringIO - imported by selenium.webdriver.remote.webelement
+missing module named urlparse - imported by selenium.webdriver.remote.remote_connection
+missing module named httplib - imported by selenium.webdriver.firefox.webdriver, selenium.webdriver.remote.remote_connection, selenium.webdriver.safari.webdriver, selenium.webdriver.blackberry.webdriver, selenium.webdriver.webkitgtk.webdriver
+missing module named cStringIO - imported by selenium.webdriver.firefox.firefox_profile
+missing module named copy_reg - imported by cStringIO
