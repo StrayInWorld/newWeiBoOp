@@ -2,24 +2,18 @@
 
 import json
 import os
-import time
 import random
-import logging
-import logging.config
+import time
 
 from selenium import webdriver
+from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.support.wait import NoSuchElementException
-from selenium.common.exceptions import TimeoutException
-
-
-logging.config.fileConfig("logger.conf")
-logger = logging.getLogger("example01")
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 class weiBoOpClass(object):
@@ -28,14 +22,24 @@ class weiBoOpClass(object):
          self.countAlert=0
 
     # 传入地址和关键字，开始操作
-    def startOp(self,url,findStr,commentSet):
+    def startOp(self,url,findKeyWord,commentSet):
+        self.findKeyWord=findKeyWord
+        self.commentSet=commendSet
         self.driver.get(url)
         self.driver.implicitly_wait(5)
-        self.isHaveCookiesFile(findStr,commentSet)
+        self.isHaveCookiesFile()
+
+    # 判断是否有cookie文件
+    def isHaveCookiesFile(self):
+        if os.path.isfile("cookies.json"):
+            print("cookies存在，执行正常流程")
+            self.doOp()
+        else:
+            print("cookies不存在")
+            self.writeToCookieFile()
 
     # 写入cookieFile
-    def writeToCookieFile(self,findStr,commentSet):
-        print("cookies不存在")
+    def writeToCookieFile(self):
         try:
             print("等待登录")
             try:
@@ -45,7 +49,6 @@ class weiBoOpClass(object):
             except TimeoutException:
                 print("超过等待时间")
                 print("cookie存在，但是无效，需要重新登录")
-                logging.error("There is a error in this file", exc_info=1)
                 if os.path.isfile("cookies.json"):
                     os.remove("cookies.json")
                     self.driver.quit()
@@ -53,21 +56,9 @@ class weiBoOpClass(object):
             # 登录完成后，将cookie保存到本地文件
             with open('cookies.json', 'w') as f:
                 f.write(jsonCookies)
-            self.doOp(findStr,commentSet)
+            self.doOp()
         finally:
             self.driver.close()
-
-    # 判断是否有cookie文件
-    def isHaveCookiesFile(self,findStr,commentSet):
-        if os.path.isfile("cookies.json"):
-            print("cookies存在，执行正常流程")
-            try:
-                self.doOp(findStr,commentSet)
-            except NoSuchElementException as e:
-                logging.error("There is a error in this file", exc_info=1)
-                self.movePage(1)
-        else:
-            self.writeToCookieFile(findStr,commentSet)
 
     # 判断节点是否存在
     def is_element_exist(self,css):
@@ -82,26 +73,36 @@ class weiBoOpClass(object):
             print("找到%s个元素：%s" % (len(s), css))
             return False
 
+    # 处理没有找到节点的问题
+    def handlerNoSuchElementException(self,byWhich,value):
+         if byWhich=="xpath":
+             try:
+                 return self.driver.find_element_by_xpath(value)
+             except:
+                 self.movePage(1)
+                 return self.driver.find_element_by_xpath(value)
+         else:
+             try:
+                 return self.driver.find_element_by_css_selector(value)
+             except:
+                 self.movePage(1)
+                 return self.driver.find_element_by_css_selector(value)
+
+
     #处理弹框
     def handlerAlert(self,sleepTime=300):
         self.driver.find_element_by_xpath('//*[@id="app"]/div[2]/div[1]/div[2]/footer/div/a').click()
-        print("已确定")
+        print("弹框确定")
         self.countAlert+=1
         if self.countAlert>5:
             print("发博太多了，暂停时间：%s秒"%str(sleepTime))
             time.sleep(sleepTime)
-        try:
-            self.driver.find_element_by_xpath('//*[@id="app"]/div[1]/div/header/div[1]').click()
-            print("关闭")
-        except WebDriverException:
-            self.movePage(1)
-            self.driver.find_element_by_xpath('//*[@id="app"]/div[1]/div/header/div[1]').click()
-            logging.error("There is a error in this file", exc_info=1)
-            print("关闭")
+
+        self.handlerNoSuchElementException("xpath", '//*[@id="app"]/div[1]/div/header/div[1]').click()
+        print("关闭评论")
 
         if self.is_element_exist('//*[@id="app"]/div[1]/div/div[1]/div/div[1]/div'):
-            self.driver.find_element_by_css_selector(
-                '#app > div:nth-child(1) > div > div.m-top-bar.m-panel.m-container-max.m-topbar-max > div > div.nav-left > div').click()
+            self.handlerNoSuchElementException('css_selector','#app > div:nth-child(1) > div > div.m-top-bar.m-panel.m-container-max.m-topbar-max > div > div.nav-left > div').click()
             print("已返回")
 
     #移动鼠标
@@ -121,9 +122,20 @@ class weiBoOpClass(object):
         print("已发送评论")
 
     # 搜索关键字留言
-    def searchComment(self,findKeyWord):
-        self.driver.find_element_by_class_name("iconf_navbar_search").click()  # 搜索按钮
-        self.driver.find_element_by_class_name("forSearch").send_keys(findKeyWord + Keys.RETURN)  # 搜索文字
+    def searchComment(self):
+        try:
+            print("开始查找发现按钮")
+            WebDriverWait(self.driver, 60, 0.5).until(EC.presence_of_element_located((By.LINK_TEXT, '发现')))
+            self.driver.find_element_by_class_name("iconf_navbar_search").click()  # 搜索按钮
+            self.driver.find_element_by_class_name("forSearch").send_keys(self.findKeyWord + Keys.RETURN)  # 搜索文字
+        except NoSuchElementException as e:
+            print("searchComment 抛出的异常：",e)
+            print("cookies存在，但是过期了")
+            self.writeToCookieFile()
+        except TimeoutException as e:
+            print("searchComment 抛出的异常：",e)
+            print("进入到了其他界面")
+            self.driver.quit()
 
     # 热门微博留言
     def hotWeiBoComment(self):
@@ -143,10 +155,9 @@ class weiBoOpClass(object):
             return fromDriver.find_element_by_xpath(css)
         except StaleElementReferenceException as e:
             print("抛出异常=",e,"重新找节点")
-            logging.error("There is a error in this file", exc_info=1)
             return fromDriver.find_element_by_xpath(css)
 
-    def doOp(self,findKeyWord,commentSet):
+    def doOp(self):
         self.driver.get('https://m.weibo.cn/')
 
         # 删除第一次建立连接时的cookie
@@ -164,8 +175,8 @@ class weiBoOpClass(object):
             })
         # 再次访问页面，便可实现免登陆访问
         self.driver.get('https://m.weibo.cn/')
-        if findKeyWord is not None:
-            self.searchComment(findKeyWord)
+        if self.findKeyWord is not None:
+            self.searchComment()
         else:
             self.hotWeiBoComment()
 
@@ -176,57 +187,62 @@ class weiBoOpClass(object):
         for i in range(len(commendlist)):
             print("-----------------"+str(i)+"-----------------")
             # 避免发博太多导致的限制。
-            time.sleep(15)
+            time.sleep(3)
             # 下面重新获取"转发，评论，赞" 是因为进行下面一系列操作之后，返回到主页面时，内容已经改变，所以需要重新获取
             newcommendlist = self.driver.find_elements_by_css_selector(".m-ctrl-box.m-box-center-a")
-            btnClick=newcommendlist[i].find_elements_by_css_selector(".m-diy-btn.m-box-col.m-box-center.m-box-center-a")[1]
+            try:
+               btnClick=newcommendlist[i].find_elements_by_css_selector(".m-diy-btn.m-box-col.m-box-center.m-box-center-a")[1]
+            except IndexError:
+                print("越界了，i的值为%d, newCommendlist的长度为%d"% (i,len(newcommendlist)))
+
+
             try:
                btnClick.click()  # 外部评论
             except WebDriverException:
-               logging.error("There is a error in this file", exc_info=1)
                self.movePage(1)
                btnClick.click()
 
             print("已点击外部评论")
             # 只有小于1条的评论，直接写入评论
             if not self.is_element_exist('// *[ @ id = "app"] / div[1] / div / div[2] / div / div / footer / div[2]'):
-                self.writeComment(commentSet)
+                self.writeComment(self.commentSet)
                 # 弹框处理
                 if self.is_element_exist('//*[@id="app"]/div[2]/div[1]/div[2]/footer/div/a'):
                     self.handlerAlert()
                     continue
                 continue
 
-            #self.driver.find_element_by_xpath('// *[ @ id = "app"] / div[1] / div / div[2] / div / div / footer / div[2]').click()  # 内部评论
             self.findNodeAgain('// *[ @ id = "app"] / div[1] / div / div[2] / div / div / footer / div[2]').click()
             print("已点击内部评论")
-            self.writeComment(commentSet)
+            self.writeComment(self.commentSet)
             #弹框处理
             if self.is_element_exist('//*[@id="app"]/div[2]/div[1]/div[2]/footer/div/a'):
                 self.handlerAlert()
                 continue
-            self.driver.find_element_by_css_selector('#app > div:nth-child(1) > div > div.m-top-bar.m-panel.m-container-max.m-topbar-max > div > div.nav-left > div').click()
+            self.driver.find_element_by_css_selector(
+                '#app > div:nth-child(1) > div > div.m-top-bar.m-panel.m-container-max.m-topbar-max > div > div.nav-left > div').click()
             print("已返回")
         self.driver.quit()
 
-keyWord="蔡徐坤"
-getUrl="https://m.weibo.cn/"
-commendSet=("嗯","嗯嗯","唔","唔唔","嗯嗯嗯",)
+
+keyWord = "科比"
+getUrl = "https://m.weibo.cn/"
+commendSet = ("嗯", "嗯嗯", "唔", "唔唔", "嗯嗯嗯",)
 
 while True:
     classDriver = weiBoOpClass(webdriver.Chrome())
     try:
-        classDriver.startOp(getUrl, keyWord,commendSet)
+        classDriver.startOp(getUrl, keyWord, commendSet)
     except StaleElementReferenceException as e:
-        print("异常",e)
+        print("异常", e)
         print("没有加载到节点")
-    except WebDriverException as e:
-        print("异常",e)
-        print("没有找到位置")
     except NoSuchElementException as e:
         print("异常", e)
         print("没有找到节点")
+    except WebDriverException as e:
+        print("异常", e)
+        print("没有找到位置")
     finally:
-        print("出错了，重新运行了")
+        print("重新运行")
         classDriver.driver.quit()
-        weiBoOpClass(webdriver.Chrome()).startOp(getUrl, keyWord,commendSet)
+        weiBoOpClass(webdriver.Chrome()).startOp(getUrl, keyWord, commendSet)
