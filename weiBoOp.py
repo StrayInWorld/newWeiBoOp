@@ -76,35 +76,59 @@ class weiBoOpClass(object):
     # 处理没有找到节点的问题
     def handlerNoSuchElementException(self,byWhich,value):
          if byWhich=="xpath":
+             print("尝试找xpath路径")
              try:
+                 return self.driver.find_element_by_xpath(value)
+             except NoSuchElementException as e:
+                 print("没有找到节点，准备移动。错误内容：",e)
+                 WebDriverWait(self.driver, 60, 0.5).until(EC.presence_of_element_located((By.XPATH, value)))
+                 print("找到了")
+                 self.movePage(1)
                  return self.driver.find_element_by_xpath(value)
              except WebDriverException:
                  print("没有找到节点，准备移动")
                  self.movePage(1)
                  return self.driver.find_element_by_xpath(value)
          else:
+             print("尝试找css_selector路径路径")
              try:
                  return self.driver.find_element_by_css_selector(value)
-             except WebDriverException:
-                 print("没有找到节点，准备移动")
+             except NoSuchElementException as e:
+                 print("没有找到节点，准备移动。错误内容：",e)
+                 WebDriverWait(self.driver, 60, 0.5).until(EC.presence_of_element_located((By.CSS_SELECTOR,value)))
+                 print("找到了")
                  self.movePage(1)
                  return self.driver.find_element_by_css_selector(value)
+             except WebDriverException as e:
+                 print("没有找到节点，准备移动。错误内容：",e)
+                 self.movePage(1)
+                 return self.driver.find_element_by_css_selector(value)
+
+    # 处理点击找不到的问题
+    def handlerClickUnAble(self,elementTarget):
+        try:
+             elementTarget.click()
+        except WebDriverException as e:
+             print("点击时无法点击，错误信息为：",e)
+             time.sleep(2)
+             elementTarget.click()
 
 
     #处理弹框
     def handlerAlert(self,sleepTime=300):
-        self.driver.find_element_by_xpath('//*[@id="app"]/div[2]/div[1]/div[2]/footer/div/a').click()
+        self.handlerClickUnAble(self.driver.find_element_by_xpath('//*[@id="app"]/div[2]/div[1]/div[2]/footer/div/a'))
         print("弹框确定")
         self.countAlert+=1
         if self.countAlert>5:
             print("发博太多了，暂停时间：%s秒"%str(sleepTime))
             time.sleep(sleepTime)
 
-        self.handlerNoSuchElementException("xpath", '//*[@id="app"]/div[1]/div/header/div[1]').click()
+        self.handlerClickUnAble(self.handlerNoSuchElementException("xpath", '//*[@id="app"]/div[1]/div/header/div[1]'))
         print("关闭评论")
 
         if self.is_element_exist('//*[@id="app"]/div[1]/div/div[1]/div/div[1]/div'):
-            self.handlerNoSuchElementException('css_selector','#app > div:nth-child(1) > div > div.m-top-bar.m-panel.m-container-max.m-topbar-max > div > div.nav-left > div').click()
+            findElement=self.handlerNoSuchElementException('css_selector','#app > div:nth-child(1) > div > div.m-top-bar.m-panel.m-container-max.m-topbar-max > div > div.nav-left > div')
+            self.handlerClickUnAble(findElement)
             print("已返回")
 
     #移动鼠标
@@ -120,7 +144,7 @@ class weiBoOpClass(object):
     def writeComment(self,word):
         self.driver.find_element_by_tag_name("textarea").send_keys(random.choice(word))  # 评论内容
         print("已发表评论")
-        self.driver.find_element_by_xpath('//*[@id="app"]/div[1]/div/header/div[3]/a').click()  # 发送评论
+        self.handlerClickUnAble(self.driver.find_element_by_xpath('//*[@id="app"]/div[1]/div/header/div[3]/a'))   # 发送评论
         print("已发送评论")
 
     # 搜索关键字留言
@@ -128,7 +152,7 @@ class weiBoOpClass(object):
         try:
             print("开始查找发现按钮")
             WebDriverWait(self.driver, 60, 0.5).until(EC.presence_of_element_located((By.LINK_TEXT, '发现')))
-            self.driver.find_element_by_class_name("iconf_navbar_search").click()  # 搜索按钮
+            self.handlerClickUnAble(self.driver.find_element_by_class_name("iconf_navbar_search"))  # 搜索按钮
             self.driver.find_element_by_class_name("forSearch").send_keys(self.findKeyWord + Keys.RETURN)  # 搜索文字
         except NoSuchElementException as e:
             print("searchComment 抛出的异常：",e)
@@ -141,9 +165,8 @@ class weiBoOpClass(object):
 
     # 热门微博留言
     def hotWeiBoComment(self):
-        self.driver.find_element_by_link_text('发现').click()  # 发现按钮
-        self.driver.find_element_by_css_selector('.card.card4.line-around').click()     # 热门微博按钮
-        time.sleep(6)
+        self.handlerClickUnAble(self.driver.find_element_by_link_text('发现')) # 发现按钮
+        self.handlerClickUnAble(self.driver.find_element_by_css_selector('.card.card4.line-around')) # 热门微博按钮
 
     # 再次查找元素
     def findNodeAgain(self,css,parent=None):
@@ -197,7 +220,6 @@ class weiBoOpClass(object):
             except IndexError:
                 print("越界了，i的值为%d, newCommendlist的长度为%d"% (i,len(newcommendlist)))
 
-
             try:
                btnClick.click()  # 外部评论
             except WebDriverException:
@@ -224,6 +246,7 @@ class weiBoOpClass(object):
             self.driver.find_element_by_css_selector(
                 '#app > div:nth-child(1) > div > div.m-top-bar.m-panel.m-container-max.m-topbar-max > div > div.nav-left > div').click()
             print("已返回")
+        print("------------执行完了，准备关闭------------")
         self.driver.quit()
 
 
@@ -247,6 +270,9 @@ while True:
     except ConnectionAbortedError as e:
         print("异常",e)
     finally:
+        timeSleepTime = 60
+        print("------------防止发博太快，暂停%d秒----------------" % timeSleepTime)
+        time.sleep(timeSleepTime)
         print("重新运行")
         classDriver.driver.quit()
         weiBoOpClass(webdriver.Chrome()).startOp(getUrl, keyWord, commendSet)
