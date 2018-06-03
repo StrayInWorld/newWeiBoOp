@@ -61,8 +61,13 @@ class weiBoOpClass(object):
             self.driver.close()
 
     # 判断节点是否存在
-    def is_element_exist(self,css):
-        s = self.driver.find_elements_by_xpath(css)
+    def is_element_exist(self,selectType,css):
+        s=None
+        if selectType=="xpath":
+            s = self.driver.find_elements_by_xpath(css)
+        else:
+            s = self.driver.find_elements_by_css_selector(css)
+
         if len(s) == 0:
             print("元素未找到:%s" % css)
             return False
@@ -81,9 +86,9 @@ class weiBoOpClass(object):
                  return self.driver.find_element_by_xpath(value)
              except NoSuchElementException as e:
                  print("没有找到节点，准备移动。错误内容：",e)
-                 WebDriverWait(self.driver, 60, 0.5).until(EC.presence_of_element_located((By.XPATH, value)))
-                 print("找到了")
                  self.movePage(1)
+                 WebDriverWait(self.driver, 15, 0.5).until(EC.presence_of_element_located((By.XPATH, value)))
+                 print("找到了")
                  return self.driver.find_element_by_xpath(value)
              except WebDriverException:
                  print("没有找到节点，准备移动")
@@ -95,9 +100,9 @@ class weiBoOpClass(object):
                  return self.driver.find_element_by_css_selector(value)
              except NoSuchElementException as e:
                  print("没有找到节点，准备移动。错误内容：",e)
-                 WebDriverWait(self.driver, 60, 0.5).until(EC.presence_of_element_located((By.CSS_SELECTOR,value)))
-                 print("找到了")
                  self.movePage(1)
+                 WebDriverWait(self.driver, 15, 0.5).until(EC.presence_of_element_located((By.CSS_SELECTOR,value)))
+                 print("找到了")
                  return self.driver.find_element_by_css_selector(value)
              except WebDriverException as e:
                  print("没有找到节点，准备移动。错误内容：",e)
@@ -108,6 +113,10 @@ class weiBoOpClass(object):
     def handlerClickUnAble(self,elementTarget):
         try:
              elementTarget.click()
+        except NoSuchElementException  as e:
+            print("点击时无法点击，错误信息为：", e)
+            time.sleep(2)
+            elementTarget.click()
         except WebDriverException as e:
              print("点击时无法点击，错误信息为：",e)
              time.sleep(2)
@@ -123,10 +132,13 @@ class weiBoOpClass(object):
             print("发博太多了，暂停时间：%s秒"%str(sleepTime))
             time.sleep(sleepTime)
 
-        self.handlerClickUnAble(self.handlerNoSuchElementException("xpath", '//*[@id="app"]/div[1]/div/header/div[1]'))
-        print("关闭评论")
+        if self.is_element_exist("xpath",'//*[@id="app"]/div[1]/div/header/div[1]'):
+            print("尝试关闭")
+            self.handlerClickUnAble(self.handlerNoSuchElementException("xpath", '//*[@id="app"]/div[1]/div/header/div[1]'))
+            print("关闭评论")
 
-        if self.is_element_exist('//*[@id="app"]/div[1]/div/div[1]/div/div[1]/div'):
+        if self.is_element_exist('css_selector','#app > div:nth-child(1) > div > div.m-top-bar.m-panel.m-container-max.m-topbar-max > div > div.nav-left > div'):
+            print("尝试返回")
             findElement=self.handlerNoSuchElementException('css_selector','#app > div:nth-child(1) > div > div.m-top-bar.m-panel.m-container-max.m-topbar-max > div > div.nav-left > div')
             self.handlerClickUnAble(findElement)
             print("已返回")
@@ -228,10 +240,11 @@ class weiBoOpClass(object):
 
             print("已点击外部评论")
             # 只有小于1条的评论，直接写入评论
-            if not self.is_element_exist('// *[ @ id = "app"] / div[1] / div / div[2] / div / div / footer / div[2]'):
+            if not self.is_element_exist("xpath",'// *[ @ id = "app"] / div[1] / div / div[2] / div / div / footer / div[2]'):
+                print("处理小于1条评论的情况")
                 self.writeComment(self.commentSet)
                 # 弹框处理
-                if self.is_element_exist('//*[@id="app"]/div[2]/div[1]/div[2]/footer/div/a'):
+                if self.is_element_exist("xpath",'//*[@id="app"]/div[2]/div[1]/div[2]/footer/div/a'):
                     self.handlerAlert()
                     continue
                 continue
@@ -240,17 +253,19 @@ class weiBoOpClass(object):
             print("已点击内部评论")
             self.writeComment(self.commentSet)
             #弹框处理
-            if self.is_element_exist('//*[@id="app"]/div[2]/div[1]/div[2]/footer/div/a'):
+            if self.is_element_exist("xpath",'//*[@id="app"]/div[2]/div[1]/div[2]/footer/div/a'):
                 self.handlerAlert()
                 continue
-            self.driver.find_element_by_css_selector(
-                '#app > div:nth-child(1) > div > div.m-top-bar.m-panel.m-container-max.m-topbar-max > div > div.nav-left > div').click()
-            print("已返回")
+
+            if self.is_element_exist("xpath",'//*[@id="app"]/div[1]/div/div[1]/div/div[1]/div'):
+                backBtn=self.driver.find_element_by_css_selector('#app > div:nth-child(1) > div > div.m-top-bar.m-panel.m-container-max.m-topbar-max > div > div.nav-left > div')
+                self.handlerClickUnAble(backBtn)
+                print("已返回")
         print("------------执行完了，准备关闭------------")
         self.driver.quit()
 
 
-keyWord = "科比"
+keyWord = "范冰冰"
 getUrl = "https://m.weibo.cn/"
 commendSet = ("嗯", "嗯嗯", "唔", "唔唔", "嗯嗯嗯",)
 
