@@ -22,7 +22,7 @@ class weiBoOpClass(object):
          self.countAlert=0
 
     # 传入地址和关键字，开始操作
-    def startOp(self,url,findKeyWord,commentSet):
+    def startOp(self,url,findKeyWord,commendSet):
         self.findKeyWord=findKeyWord
         self.commentSet=commendSet
         self.driver.get(url)
@@ -265,9 +265,15 @@ class weiBoOpClass(object):
         self.driver.quit()
 
 
-keyWord = "范冰冰"
+keyWord = "鹿晗"
 getUrl = "https://m.weibo.cn/"
 commendSet = ("嗯", "嗯嗯", "唔", "唔唔", "嗯嗯嗯",)
+
+with open('configComment.json', 'r', encoding='utf-8') as f:
+    configs = json.loads(f.read())
+for cookie in configs:
+    keyWord=cookie['keyWord']
+    commendSet=tuple(cookie['commentSet'])
 
 while True:
     classDriver = weiBoOpClass(webdriver.Chrome())
