@@ -30,7 +30,7 @@
  [],
  False,
  False,
- 1528031386,
+ 1528045056,
  [('run.exe',
    'G:\\newWeiBo\\venv\\lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit\\run.exe',
    'EXECUTABLE')])

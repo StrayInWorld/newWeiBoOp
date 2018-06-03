@@ -46,6 +46,7 @@ class weiBoOpClass(object):
                 WebDriverWait(self.driver, 60, 0.5).until(EC.presence_of_element_located((By.LINK_TEXT, '发现')))
                 dictCookies = self.driver.get_cookies()
                 jsonCookies = json.dumps(dictCookies)
+
             except TimeoutException:
                 print("超过等待时间")
                 print("cookie存在，但是无效，需要重新登录")
@@ -194,6 +195,57 @@ class weiBoOpClass(object):
             print("抛出异常=",e,"重新找节点")
             return fromDriver.find_element_by_xpath(css)
 
+    def realOp(self,startIndex):
+        commendlist = self.driver.find_elements_by_css_selector(".m-ctrl-box.m-box-center-a")
+        print(len(commendlist))
+        if len(commendlist) == 0:
+            self.movePage()
+        for i in range(startIndex,len(commendlist)):
+            print("-----------------" + str(i) + "-----------------")
+            # 避免发博太多导致的限制。
+            time.sleep(3)
+            # 下面重新获取"转发，评论，赞" 是因为进行下面一系列操作之后，返回到主页面时，内容已经改变，所以需要重新获取
+            newcommendlist = self.driver.find_elements_by_css_selector(".m-ctrl-box.m-box-center-a")
+            try:
+                btnClick = \
+                newcommendlist[i].find_elements_by_css_selector(".m-diy-btn.m-box-col.m-box-center.m-box-center-a")[1]
+            except IndexError:
+                print("越界了，i的值为%d, newCommendlist的长度为%d" % (i, len(newcommendlist)))
+
+            try:
+                btnClick.click()  # 外部评论
+            except WebDriverException:
+                self.movePage(1)
+                btnClick.click()
+
+            print("已点击外部评论")
+            # 只有小于1条的评论，直接写入评论
+            if not self.is_element_exist("xpath",
+                                         '// *[ @ id = "app"] / div[1] / div / div[2] / div / div / footer / div[2]'):
+                print("处理小于1条评论的情况")
+                self.writeComment(self.commentSet)
+                # 弹框处理
+                if self.is_element_exist("xpath", '//*[@id="app"]/div[2]/div[1]/div[2]/footer/div/a'):
+                    self.handlerAlert()
+                    continue
+                continue
+
+            self.findNodeAgain('// *[ @ id = "app"] / div[1] / div / div[2] / div / div / footer / div[2]').click()
+            print("已点击内部评论")
+            self.writeComment(self.commentSet)
+            # 弹框处理
+            if self.is_element_exist("xpath", '//*[@id="app"]/div[2]/div[1]/div[2]/footer/div/a'):
+                self.handlerAlert()
+                continue
+
+            if self.is_element_exist("xpath", '//*[@id="app"]/div[1]/div/div[1]/div/div[1]/div'):
+                backBtn = self.driver.find_element_by_css_selector(
+                    '#app > div:nth-child(1) > div > div.m-top-bar.m-panel.m-container-max.m-topbar-max > div > div.nav-left > div')
+                self.handlerClickUnAble(backBtn)
+                print("已返回")
+            # time.sleep(60)  # 1分钟运行一次，防止发博太快了
+        return len(commendlist)
+
     def doOp(self):
         self.driver.get('https://m.weibo.cn/')
 
@@ -212,68 +264,29 @@ class weiBoOpClass(object):
             })
         # 再次访问页面，便可实现免登陆访问
         self.driver.get('https://m.weibo.cn/')
-        if self.findKeyWord is not None:
+        if  self.findKeyWord!="":
             self.searchComment()
         else:
             self.hotWeiBoComment()
 
-        commendlist = self.driver.find_elements_by_css_selector(".m-ctrl-box.m-box-center-a")
-        print(len(commendlist))
-        if len(commendlist)==0:
-            self.movePage()
-        for i in range(len(commendlist)):
-            print("-----------------"+str(i)+"-----------------")
-            # 避免发博太多导致的限制。
-            time.sleep(3)
-            # 下面重新获取"转发，评论，赞" 是因为进行下面一系列操作之后，返回到主页面时，内容已经改变，所以需要重新获取
-            newcommendlist = self.driver.find_elements_by_css_selector(".m-ctrl-box.m-box-center-a")
-            try:
-               btnClick=newcommendlist[i].find_elements_by_css_selector(".m-diy-btn.m-box-col.m-box-center.m-box-center-a")[1]
-            except IndexError:
-                print("越界了，i的值为%d, newCommendlist的长度为%d"% (i,len(newcommendlist)))
+        print("执行第一次")
+        startIndex=self.realOp(0)
+        print("执行第二次")
+        self.realOp(startIndex)
 
-            try:
-               btnClick.click()  # 外部评论
-            except WebDriverException:
-               self.movePage(1)
-               btnClick.click()
-
-            print("已点击外部评论")
-            # 只有小于1条的评论，直接写入评论
-            if not self.is_element_exist("xpath",'// *[ @ id = "app"] / div[1] / div / div[2] / div / div / footer / div[2]'):
-                print("处理小于1条评论的情况")
-                self.writeComment(self.commentSet)
-                # 弹框处理
-                if self.is_element_exist("xpath",'//*[@id="app"]/div[2]/div[1]/div[2]/footer/div/a'):
-                    self.handlerAlert()
-                    continue
-                continue
-
-            self.findNodeAgain('// *[ @ id = "app"] / div[1] / div / div[2] / div / div / footer / div[2]').click()
-            print("已点击内部评论")
-            self.writeComment(self.commentSet)
-            #弹框处理
-            if self.is_element_exist("xpath",'//*[@id="app"]/div[2]/div[1]/div[2]/footer/div/a'):
-                self.handlerAlert()
-                continue
-
-            if self.is_element_exist("xpath",'//*[@id="app"]/div[1]/div/div[1]/div/div[1]/div'):
-                backBtn=self.driver.find_element_by_css_selector('#app > div:nth-child(1) > div > div.m-top-bar.m-panel.m-container-max.m-topbar-max > div > div.nav-left > div')
-                self.handlerClickUnAble(backBtn)
-                print("已返回")
         print("------------执行完了，准备关闭------------")
         self.driver.quit()
 
 
-keyWord = "鹿晗"
+
 getUrl = "https://m.weibo.cn/"
-commendSet = ("嗯", "嗯嗯", "唔", "唔唔", "嗯嗯嗯",)
+
 
 with open('configComment.json', 'r', encoding='utf-8') as f:
     configs = json.loads(f.read())
-for cookie in configs:
-    keyWord=cookie['keyWord']
-    commendSet=tuple(cookie['commentSet'])
+    for cookie in configs:
+        keyWord=cookie["keyWord"]
+        commendSet=tuple(cookie['commentSet'])
 
 while True:
     classDriver = weiBoOpClass(webdriver.Chrome())
