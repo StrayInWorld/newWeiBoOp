@@ -4,6 +4,7 @@ import json
 import os
 import random
 import time
+import sys,traceback
 
 from selenium import webdriver
 from selenium.common.exceptions import StaleElementReferenceException
@@ -212,7 +213,7 @@ class weiBoOpClass(object):
         commendlist = self.driver.find_elements_by_css_selector(".m-ctrl-box.m-box-center-a")
         print(len(commendlist))
         if len(commendlist) == 0:
-            self.movePage()
+            self.movePage(None)
         for i in range(startIndex,len(commendlist)):
             print("-----------------" + str(i) + "-----------------")
             # 避免发博太多导致的限制。
@@ -313,17 +314,8 @@ while True:
     classDriver = weiBoOpClass(webdriver.Chrome())
     try:
         classDriver.startOp(getUrl, keyWord, commendSet,commentMode,timeSleep)
-    except StaleElementReferenceException as e:
-        print("异常", e)
-        print("没有加载到节点")
-    except NoSuchElementException as e:
-        print("异常", e)
-        print("没有找到节点")
-    except WebDriverException as e:
-        print("异常", e)
-        print("没有找到位置")
-    except ConnectionAbortedError as e:
-        print("异常",e)
+    except Exception as e:
+        traceback.print_exception(*sys.exc_info())
     finally:
         timeSleepTime = 10
         print("------------防止发博太快，暂停%d秒----------------" % timeSleepTime)
