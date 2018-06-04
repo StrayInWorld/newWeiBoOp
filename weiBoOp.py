@@ -262,6 +262,10 @@ class weiBoOpClass(object):
             self.startSleep()
         return len(commendlist)
 
+    def opNumber(self,startNum):
+        print("开始执行第%d次"%(startNum+1))
+        return self.realOp(startNum)
+
     def doOp(self):
         self.driver.get('https://m.weibo.cn/')
 
@@ -287,10 +291,9 @@ class weiBoOpClass(object):
         elif self.commentMode==3:   # 模式3为话题
             self.huatiComment()
 
-        print("执行第一次")
-        startIndex=self.realOp(0)
-        print("执行第二次")
-        self.realOp(startIndex)
+        lastStartIndex = 0
+        for i in range(6):
+             lastStartIndex=self.opNumber(lastStartIndex)
 
         print("------------执行完了，准备关闭------------")
         self.driver.quit()
@@ -322,7 +325,7 @@ while True:
     except ConnectionAbortedError as e:
         print("异常",e)
     finally:
-        timeSleepTime = 60
+        timeSleepTime = 10
         print("------------防止发博太快，暂停%d秒----------------" % timeSleepTime)
         time.sleep(timeSleepTime)
         print("重新运行")

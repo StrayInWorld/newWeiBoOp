@@ -1,7 +1,10 @@
-# coding=utf-8
+def realOp(aa):
+    return aa
 
-import random
+def opNumber(startNum):
+    print("执行第%d次" % (startNum + 1))
+    return realOp(startNum)
 
-for i in range(101):
-    print(random.choice(('asd','qweq','qweq','zxcz','qweq','qweq','zxc','qweqweq','werwer','fgdfgd','ghjghjg','tyutyu',',nm,n,','utytu','uiyui',
-                         'rtertw','qweqwe','kyuiy','vbnvn','zxcasd','dgfdg')))
+lastStartIndex = 0
+for i in range(100):
+    lastStartIndex = opNumber(lastStartIndex)
