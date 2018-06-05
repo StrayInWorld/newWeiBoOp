@@ -46,14 +46,14 @@ time.sleep(5)
 openWeiBoBtnPos = waitWebDriver("xpath",'//*[@id="app"]/div[1]/aside/a').location  # 点击打开微博按钮
 print("openWeiBoBtnPos=",openWeiBoBtnPos)
 
-#这里应该等某个东西出来了，再执行下面的内容，而不是强制sleep()
+# 这里应该等某个东西出来了，再执行下面的内容，而不是强制sleep()
 time.sleep(5)
 footNodes=driver.find_elements_by_css_selector(".m-ctrl-box.m-box-center-a")
 footNodePos=footNodes[0].location
 print("footNode",footNodePos)
 
 srollNum=1
-while openWeiBoBtnPos["y"]+200<footNodePos["y"]:
+while openWeiBoBtnPos["y"]-200<footNodePos["y"]:
     driver.execute_script("window.scrollTo(100, %d);"%(srollNum*200))
     srollNum += 1
     openWeiBoBtnPos=waitWebDriver("xpath", '//*[@id="app"]/div[1]/aside/a').location
