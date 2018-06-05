@@ -62,9 +62,7 @@ while openWeiBoBtnPos["y"]-200<footNodePos["y"]:
     print("移动后 footNode=",footNodePos)
     time.sleep(1)
 
-driver.quit()
-if driver:
-    driver.quit()
+
 # if openWeiBoBtnPos["y"]>footNodePos["y"]:
 #     footNodes[0].click()
 

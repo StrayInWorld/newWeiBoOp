@@ -12,15 +12,17 @@
       <change beforePath="$PROJECT_DIR$/build/weiBoOp/out00-PYZ.toc" afterPath="$PROJECT_DIR$/build/weiBoOp/out00-PYZ.toc" />
       <change beforePath="$PROJECT_DIR$/build/weiBoOp/warnweiBoOp.txt" afterPath="$PROJECT_DIR$/build/weiBoOp/warnweiBoOp.txt" />
       <change beforePath="$PROJECT_DIR$/build/weiBoOp/weiBoOp.exe" afterPath="$PROJECT_DIR$/build/weiBoOp/weiBoOp.exe" />
+      <change beforePath="$PROJECT_DIR$/build/weiBoOp/xref-weiBoOp.html" afterPath="$PROJECT_DIR$/build/weiBoOp/xref-weiBoOp.html" />
       <change beforePath="$PROJECT_DIR$/configComment.json" afterPath="$PROJECT_DIR$/configComment.json" />
       <change beforePath="$PROJECT_DIR$/cookies.json" afterPath="" />
       <change beforePath="$PROJECT_DIR$/dist/weiBoOp/base_library.zip" afterPath="$PROJECT_DIR$/dist/weiBoOp/base_library.zip" />
-      <change beforePath="$PROJECT_DIR$/dist/weiBoOp/configComment.json" afterPath="$PROJECT_DIR$/dist/weiBoOp/configComment.json" />
-      <change beforePath="$PROJECT_DIR$/dist/weiBoOp/cookies.json" afterPath="$PROJECT_DIR$/dist/weiBoOp/cookies.json" />
+      <change beforePath="$PROJECT_DIR$/dist/weiBoOp/configComment.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/dist/weiBoOp/cookies.json" afterPath="" />
       <change beforePath="$PROJECT_DIR$/dist/weiBoOp/weiBoOp.exe" afterPath="$PROJECT_DIR$/dist/weiBoOp/weiBoOp.exe" />
       <change beforePath="$PROJECT_DIR$/pythonTest.py" afterPath="$PROJECT_DIR$/pythonTest.py" />
       <change beforePath="$PROJECT_DIR$/test.py" afterPath="$PROJECT_DIR$/test.py" />
       <change beforePath="$PROJECT_DIR$/weiBoOp.py" afterPath="$PROJECT_DIR$/weiBoOp.py" />
+      <change beforePath="$PROJECT_DIR$/weiBoOp.spec" afterPath="$PROJECT_DIR$/weiBoOp.spec" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -59,8 +61,8 @@
       <file leaf-file-name="weiBoOp.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/weiBoOp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8694">
-              <caret line="334" column="0" lean-forward="true" selection-start-line="334" selection-start-column="0" selection-end-line="334" selection-end-column="0" />
+            <state relative-caret-position="409">
+              <caret line="356" column="23" lean-forward="false" selection-start-line="356" selection-start-column="23" selection-end-line="356" selection-end-column="23" />
               <folding>
                 <element signature="e#16#27#0" expanded="true" />
               </folding>
@@ -81,8 +83,8 @@
       <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="513">
-              <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+            <state relative-caret-position="405">
+              <caret line="42" column="70" lean-forward="false" selection-start-line="42" selection-start-column="59" selection-end-line="42" selection-end-column="70" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -93,8 +95,8 @@
       <file leaf-file-name="pythonTest.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pythonTest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+            <state relative-caret-position="162">
+              <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -111,20 +113,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>没有找到位置</find>
-      <find>browser</find>
-      <find>y</find>
-      <find>waitLoginNum</find>
-      <find>weiBoOpClass</find>
-      <find>driver.quit</find>
-      <find>isHaveCookiesFile</find>
-      <find>driver.quit()</find>
-      <find>cookies存在，执行正常流程</find>
-      <find>timeSleep</find>
-      <find>waitLoginTime</find>
-      <find>writeToCookieFile</find>
-      <find>implicitly_wait</find>
-      <find>WebDriverWait</find>
       <find>until(EC.presence_of_element_located((By.LINK_TEXT, '发现')))</find>
       <find>WeiBoOpClass</find>
       <find>opPacking</find>
@@ -132,8 +120,6 @@
       <find>countAlert</find>
       <find>file_handler</find>
       <find>huatiComment</find>
-      <find>huati_comment</find>
-      <find>handler_click_unable</find>
       <find>move_page</find>
       <find>is_element_exist</find>
       <find>handler_no_such_element_exception</find>
@@ -141,10 +127,27 @@
       <find>except</find>
       <find>real_op</find>
       <find>op_packing</find>
+      <find>do_op</find>
+      <find>huati_comment</find>
+      <find>click</find>
+      <find>write_to_cookie_file</find>
+      <find>open_weibo_btn</find>
+      <find>handler_click_unable</find>
+      <find>WebDriverWait</find>
+      <find>tag_name</find>
+      <find>link_text</find>
+      <find>className</find>
+      <find>xpath</find>
+      <find>search_comment</find>
+      <find>wait_web_driver</find>
+      <find>start_sleep</find>
+      <find>op_once_sleep</find>
+      <find>time.sleep</find>
     </findStrings>
     <replaceStrings>
       <replace>driver</replace>
       <replace>op_packing</replace>
+      <replace>op_once_sleep</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -154,8 +157,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/guiCreate.py" />
-        <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/configComment.json" />
+        <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/pythonTest.py" />
         <option value="$PROJECT_DIR$/weiBoOp.py" />
       </list>
@@ -345,15 +348,15 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16127263" sideWeight="0.4941349" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.4958859" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28958333" sideWeight="0.3976961" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35729167" sideWeight="0.4059243" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.49808007" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.4936917" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.49808007" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28958333" sideWeight="0.6023039" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35729167" sideWeight="0.5940757" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34895834" sideWeight="0.44761384" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34895834" sideWeight="0.44541964" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16127263" sideWeight="0.5058651" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.49149755" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20729166" sideWeight="0.48710915" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -367,7 +370,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="8" />
+      <option name="time" value="13" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -708,36 +711,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cookies.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="19" lean-forward="false" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/selenium/common/exceptions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
           <caret line="81" column="6" lean-forward="false" selection-start-line="81" selection-start-column="6" selection-end-line="81" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pythonTest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -750,10 +727,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pythonTest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="42" column="70" lean-forward="false" selection-start-line="42" selection-start-column="59" selection-end-line="42" selection-end-column="70" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cookies.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="19" lean-forward="false" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/weiBoOp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8694">
-          <caret line="334" column="0" lean-forward="true" selection-start-line="334" selection-start-column="0" selection-end-line="334" selection-end-column="0" />
+        <state relative-caret-position="409">
+          <caret line="356" column="23" lean-forward="false" selection-start-line="356" selection-start-column="23" selection-end-line="356" selection-end-column="23" />
           <folding>
             <element signature="e#16#27#0" expanded="true" />
           </folding>

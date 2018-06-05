@@ -1,7 +1,7 @@
 missing module named resource - imported by posix, G:\newWeiBo\weiBoOp.py
 missing module named posix - imported by os, G:\newWeiBo\weiBoOp.py
 missing module named _posixsubprocess - imported by subprocess, G:\newWeiBo\weiBoOp.py
-missing module named 'org.python' - imported by pickle, xml.sax, G:\newWeiBo\weiBoOp.py
+missing module named org - imported by pickle, G:\newWeiBo\weiBoOp.py
 missing module named readline - imported by cmd, code, pdb, G:\newWeiBo\weiBoOp.py
 excluded module named _frozen_importlib - imported by importlib, importlib.abc, G:\newWeiBo\weiBoOp.py
 missing module named _frozen_importlib_external - imported by importlib._bootstrap, importlib, importlib.abc, G:\newWeiBo\weiBoOp.py
@@ -14,7 +14,7 @@ missing module named termios - imported by tty, getpass, G:\newWeiBo\weiBoOp.py
 missing module named grp - imported by shutil, tarfile, G:\newWeiBo\weiBoOp.py
 missing module named pwd - imported by posixpath, shutil, tarfile, http.server, webbrowser, netrc, getpass, G:\newWeiBo\weiBoOp.py
 missing module named _dummy_threading - imported by dummy_threading, G:\newWeiBo\weiBoOp.py
-missing module named org - imported by copy, G:\newWeiBo\weiBoOp.py
+missing module named 'org.python' - imported by copy, xml.sax, G:\newWeiBo\weiBoOp.py
 missing module named urllib2 - imported by selenium.webdriver.common.utils, selenium.webdriver.remote.remote_connection, selenium.webdriver.common.service
 missing module named StringIO - imported by selenium.webdriver.remote.webelement
 missing module named urlparse - imported by selenium.webdriver.remote.remote_connection

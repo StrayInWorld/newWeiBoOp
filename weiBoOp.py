@@ -65,7 +65,6 @@ class WeiBoOpClass(object):
                 os.remove("cookies.json")
             self.driver.quit()
 
-
     def do_op(self):
         self.driver.get('https://m.weibo.cn/')
 
@@ -84,12 +83,14 @@ class WeiBoOpClass(object):
             })
         # 再次访问页面，便可实现免登陆访问
         self.driver.get('https://m.weibo.cn/')
+
+        # 根据模式，选择不同操作
         if self.commentMode == 1:  # 模式1为搜索
             self.search_comment()
         elif self.commentMode == 2:  # 模式2为热门
             self.hot_wei_bo_comment()
         elif self.commentMode == 3:  # 模式3为话题
-            self.huati_comment()
+            self.super_huati_comment()
 
     # 判断节点是否存在
     def is_element_exist(self, select_type, css):
@@ -114,49 +115,51 @@ class WeiBoOpClass(object):
             print("尝试找xpath路径")
             try:
                 return self.driver.find_element_by_xpath(value)
-            except NoSuchElementException:
-                traceback.print_exception(*sys.exc_info())
-                print("没有找到节点，准备移动。错误内容：")
-                self.move_page(1)
-                WebDriverWait(self.driver, 15, 0.5).until(EC.presence_of_element_located((By.XPATH, value)))
-                print("找到了")
-                return self.driver.find_element_by_xpath(value)
             except WebDriverException:
                 traceback.print_exception(*sys.exc_info())
                 print("没有找到节点，准备移动")
                 self.move_page(1)
+                print("找到了")
                 return self.driver.find_element_by_xpath(value)
         else:
             print("尝试找css_selector路径路径")
             try:
                 return self.driver.find_element_by_css_selector(value)
-            except NoSuchElementException:
+            except WebDriverException:
                 traceback.print_exception(*sys.exc_info())
                 print("没有找到节点，准备移动。错误内容：")
                 self.move_page(1)
                 WebDriverWait(self.driver, 15, 0.5).until(EC.presence_of_element_located((By.CSS_SELECTOR, value)))
                 print("找到了")
                 return self.driver.find_element_by_css_selector(value)
-            except WebDriverException:
-                traceback.print_exception(*sys.exc_info())
-                print("没有找到节点，准备移动。错误内容：")
-                self.move_page(1)
-                return self.driver.find_element_by_css_selector(value)
 
     # 处理点击找不到的问题
     def handler_click_unable(self, element_target):
         try:
-            element_target.click()
-        except NoSuchElementException:
-            traceback.print_exception(*sys.exc_info())
-            print("点击时无法点击，错误信息为：")
-            time.sleep(2)
             element_target.click()
         except WebDriverException:
             traceback.print_exception(*sys.exc_info())
             print("点击时无法点击，错误信息为：")
             time.sleep(2)
             element_target.click()
+
+    # 等待某个节点出现在执行
+    def wait_web_driver(self,search_type, value):
+        try:
+            if search_type == "link_text":
+                WebDriverWait(self.driver, 60, 0.5).until(EC.presence_of_element_located((By.LINK_TEXT, value)))
+            elif search_type == "className":
+                WebDriverWait(self.driver, 60, 0.5).until(EC.presence_of_element_located((By.CLASS_NAME, value)))
+                return self.driver.find_element_by_class_name(value)
+            elif search_type == "xpath":
+                WebDriverWait(self.driver, 60, 0.5).until(EC.presence_of_element_located((By.XPATH, value)))
+                return self.driver.find_element_by_xpath(value)
+            elif search_type == "tag_name":
+                WebDriverWait(self.driver, 60, 0.5).until(EC.presence_of_element_located((By.TAG_NAME, value)))
+                return self.driver.find_element_by_tag_name(value)
+        except TimeoutException:
+            print("没有找到节点")
+            self.driver.quit()
 
     # 处理弹框
     def handler_alert(self, sleep_time=300):
@@ -190,18 +193,19 @@ class WeiBoOpClass(object):
     # 发表评论
     def write_comment(self, word):
         time.sleep(1)
-        self.driver.find_element_by_tag_name("textarea").send_keys(random.choice(word))  # 评论内容
+        self.wait_web_driver("tag_name","textarea").send_keys(random.choice(word))  # 评论内容
         print("已发表评论")
-        self.handler_click_unable(self.driver.find_element_by_xpath('//*[@id="app"]/div[1]/div/header/div[3]/a'))
+        self.wait_web_driver("xpath",'//*[@id="app"]/div[1]/div/header/div[3]/a').click()
         print("已发送评论")
 
     # 搜索关键字
     def search_comment(self):
         try:
             print("开始查找发现按钮")
-            WebDriverWait(self.driver, 60, 0.5).until(EC.presence_of_element_located((By.LINK_TEXT, '发现')))
-            self.handler_click_unable(self.driver.find_element_by_class_name("iconf_navbar_search"))  # 搜索按钮
-            self.driver.find_element_by_class_name("forSearch").send_keys(self.findKeyWord + Keys.RETURN)  # 搜索文字
+            # 这里又再找一遍 “发现按钮” 是因为可能进入到了别的界面
+            self.wait_web_driver("link_text",'发现')
+            self.wait_web_driver("className","iconf_navbar_search").click()
+            self.wait_web_driver("className","forSearch").send_keys(self.findKeyWord + Keys.RETURN)  # 搜索文字
             self.op_packing()
         except NoSuchElementException:
             traceback.print_exception(*sys.exc_info())
@@ -224,13 +228,13 @@ class WeiBoOpClass(object):
         self.handler_click_unable(self.driver.find_element_by_link_text('发现'))  # 发现按钮
         self.handler_click_unable(self.driver.find_element_by_css_selector('.card.card4.line-around'))  # 热门微博按钮
 
-    # 话题
-    def huati_comment(self):
+    # 超级话题
+    def super_huati_comment(self):
         self.search_comment()
         self.handler_click_unable(self.handler_no_such_element_exception("xpath", '//*[@id="app"]/div[1]/div[1]/div[1]/div[2]/div[1]/div/div[1]/div/ul/li[10]'))
 
     # 休息时间
-    def start_sleep(self):
+    def op_once_sleep(self):
         print("开始休息%d秒" % int(self.timeSleep))
         time.sleep(int(self.timeSleep))  # 防止发博太快了
         print("休息结束")
@@ -252,13 +256,12 @@ class WeiBoOpClass(object):
 
     def real_op(self, start_index):
         commend_list = self.driver.find_elements_by_css_selector(".m-ctrl-box.m-box-center-a")
-        print(len(commend_list))
+        print("发现 %d条 内容"%(len(commend_list)))
         if len(commend_list) == 0:
             self.move_page(0)
+        if len(commend_list) == 0: print("没有内容，可以评论")
         for i in range(start_index, len(commend_list)):
             print("-----------------" + str(i) + "-----------------")
-            # 避免发博太多导致的限制。
-            time.sleep(3)
             # 下面重新获取"转发，评论，赞" 是因为进行下面一系列操作之后，返回到主页面时，内容已经改变，所以需要重新获取
             new_commend_list = self.driver.find_elements_by_css_selector(".m-ctrl-box.m-box-center-a")
             try:
@@ -280,9 +283,9 @@ class WeiBoOpClass(object):
                     # 弹框处理
                     if self.is_element_exist("xpath", '//*[@id="app"]/div[2]/div[1]/div[2]/footer/div/a'):
                         self.handler_alert()
-                        self.start_sleep()
+                        self.op_once_sleep()
                         continue
-                    self.start_sleep()
+                    self.op_once_sleep()
                     continue
 
                 time.sleep(1)
@@ -293,7 +296,7 @@ class WeiBoOpClass(object):
                 # 弹框处理
                 if self.is_element_exist("xpath", '//*[@id="app"]/div[2]/div[1]/div[2]/footer/div/a'):
                     self.handler_alert()
-                    self.start_sleep()
+                    self.op_once_sleep()
                     continue
 
                 if self.is_element_exist("xpath", '//*[@id="app"]/div[1]/div/div[1]/div/div[1]/div'):
@@ -301,7 +304,7 @@ class WeiBoOpClass(object):
                         '#app > div:nth-child(1) > div > div.m-top-bar.m-panel.m-container-max.m-topbar-max > div > div.nav-left > div')
                     self.handler_click_unable(back_btn)
                     print("已返回")
-                self.start_sleep()
+                self.op_once_sleep()
 
             except IndexError:
                 traceback.print_exception(*sys.exc_info())
@@ -350,10 +353,9 @@ while True:
     except Exception as e:
         traceback.print_exception(*sys.exc_info())
     finally:
-        timeSleepTime = 10
-        print("------------防止发博太快，暂停%d秒----------------" % timeSleepTime)
+        print("------------防止发博太快，暂停评论----------------" )
+        classDriver.op_once_sleep()
         print("即将重新运行")
-        time.sleep(timeSleepTime)
         if classDriver.driver:
             classDriver.driver.quit()
 
