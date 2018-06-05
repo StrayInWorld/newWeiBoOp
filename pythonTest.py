@@ -1,11 +1,16 @@
-import os
+keyWord = "坤坤"
+commentMode = 1
+commendSet = tuple()
+timeSleep = 15
 
-def a1(bool):
-    if bool:
-        s=10
-    else:
-        s=20
+if 10>1:
+   for i in range(6):
+       keyWord="dd"
+       timeSleep=20
 
-    return s
+print(keyWord)
+print(timeSleep)
 
-print(a1(False))
+
+
+
