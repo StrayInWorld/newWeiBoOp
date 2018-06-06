@@ -54,7 +54,7 @@ print("footNode",footNodePos)
 
 srollNum=1
 while openWeiBoBtnPos["y"]-200<footNodePos["y"]:
-    driver.execute_script("window.scrollTo(100, %d);"%(srollNum*200))
+    driver.execute_script("window.scrollTo(100, %d);"%(srollNum*500))
     srollNum += 1
     openWeiBoBtnPos=waitWebDriver("xpath", '//*[@id="app"]/div[1]/aside/a').location
     print("移动后 openWeiBoBtnPos=",openWeiBoBtnPos)
@@ -63,7 +63,7 @@ while openWeiBoBtnPos["y"]-200<footNodePos["y"]:
     time.sleep(1)
 
 
-# if openWeiBoBtnPos["y"]>footNodePos["y"]:
-#     footNodes[0].click()
+if openWeiBoBtnPos["y"]>footNodePos["y"]:
+    footNodes[0].click()
 
 

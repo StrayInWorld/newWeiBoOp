@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['weiBoOp.py'],
-             pathex=['G:\\newWeiBo\\configComment.json', 'G:\\newWeiBo'],
+             pathex=['G:\\newWeiBo'],
              binaries=[],
              datas=[],
              hiddenimports=[],

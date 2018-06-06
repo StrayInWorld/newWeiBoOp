@@ -66,8 +66,6 @@ class WeiBoOpClass(object):
             self.driver.quit()
 
     def do_op(self):
-        self.driver.get('https://m.weibo.cn/')
-
         # 删除第一次建立连接时的cookie
         self.driver.delete_all_cookies()
         # 读取登录时存储到本地的cookie
@@ -85,11 +83,11 @@ class WeiBoOpClass(object):
         self.driver.get('https://m.weibo.cn/')
 
         # 根据模式，选择不同操作
-        if self.commentMode == 1:  # 模式1为搜索
+        if self.commentMode == 1:    # 模式1为搜索
             self.search_comment()
         elif self.commentMode == 2:  # 模式2为热门
             self.hot_wei_bo_comment()
-        elif self.commentMode == 3:  # 模式3为话题
+        elif self.commentMode == 3:  # 模式3为超级话题
             self.super_huati_comment()
 
     # 判断节点是否存在
@@ -135,11 +133,12 @@ class WeiBoOpClass(object):
 
     # 处理点击找不到的问题
     def handler_click_unable(self, element_target):
+        WebDriverWait(self.driver, 10, 0.5).until_not(EC.presence_of_element_located((By.CLASS_NAME, "m-mask")))
         try:
             element_target.click()
         except WebDriverException:
             traceback.print_exception(*sys.exc_info())
-            print("点击时无法点击，错误信息为：")
+            print("点击时无法点击")
             time.sleep(2)
             element_target.click()
 
@@ -163,7 +162,7 @@ class WeiBoOpClass(object):
 
     # 处理弹框
     def handler_alert(self, sleep_time=300):
-        self.handler_click_unable(self.driver.find_element_by_xpath('//*[@id="app"]/div[2]/div[1]/div[2]/footer/div/a'))
+        self.driver.find_element_by_xpath('//*[@id="app"]/div[2]/div[1]/div[2]/footer/div/a').click()
         print("弹框确定")
         self.countAlert += 1
         if self.countAlert > 5:
@@ -172,12 +171,12 @@ class WeiBoOpClass(object):
 
         if self.is_element_exist("xpath", '//*[@id="app"]/div[1]/div/header/div[1]'):
             print("尝试关闭")
-            self.handler_click_unable(self.handler_no_such_element_exception("xpath", '//*[@id="app"]/div[1]/div/header/div[1]'))
+            self.handler_click_unable(self.driver.find_element_by_xpath('//*[@id="app"]/div[1]/div/header/div[1]'))
             print("关闭评论")
 
         if self.is_element_exist('css_selector','#app > div:nth-child(1) > div > div.m-top-bar.m-panel.m-container-max.m-topbar-max > div > div.nav-left > div'):
             print("尝试返回")
-            find_element = self.handler_no_such_element_exception('css_selector','#app > div:nth-child(1) > div > div.m-top-bar.m-panel.m-container-max.m-topbar-max > div > div.nav-left > div')
+            find_element = self.driver.find_element_by_css_selector('#app > div:nth-child(1) > div > div.m-top-bar.m-panel.m-container-max.m-topbar-max > div > div.nav-left > div')
             self.handler_click_unable(find_element)
             print("已返回")
 
@@ -209,7 +208,7 @@ class WeiBoOpClass(object):
             self.op_packing()
         except NoSuchElementException:
             traceback.print_exception(*sys.exc_info())
-            print("search_comment 抛出的异常：")
+            print("search_comment 抛出的异常")
             print("cookies存在，但是过期了")
             self.write_to_cookie_file()
         except TimeoutException:
@@ -231,7 +230,6 @@ class WeiBoOpClass(object):
     # 超级话题
     def super_huati_comment(self):
         self.search_comment()
-        self.handler_click_unable(self.handler_no_such_element_exception("xpath", '//*[@id="app"]/div[1]/div[1]/div[1]/div[2]/div[1]/div/div[1]/div/ul/li[10]'))
 
     # 休息时间
     def op_once_sleep(self):
@@ -254,12 +252,38 @@ class WeiBoOpClass(object):
             print("抛出异常，重新找节点")
             return from_driver.find_element_by_xpath(css)
 
+    def get_new_outer_comment_list(self,index):
+        new_commend_list = self.driver.find_elements_by_css_selector(".m-ctrl-box.m-box-center-a")
+        out_comment_btn = new_commend_list[index].find_elements_by_css_selector(".m-diy-btn.m-box-col.m-box-center.m-box-center-a")[1]
+        return out_comment_btn
+
+    # 判断是否有微博内打开按钮
+    def is_have_open_wei_bo_btn(self,i):
+        if(self.is_element_exist("xpath",'//*[@id="app"]/div[1]/aside/a')):
+            open_wei_bo_btn_pos = self.wait_web_driver("xpath", '//*[@id="app"]/div[1]/aside/a').location  # 点击打开微博按钮
+            find_node_pos=self.get_new_outer_comment_list(i).location
+            print("移动前 openWeiBoBtnPos=", open_wei_bo_btn_pos)
+            print("移动前 footNode=", find_node_pos)
+            while open_wei_bo_btn_pos["y"] - 100 < find_node_pos["y"]:
+                pos_y=open_wei_bo_btn_pos["y"]
+                self.driver.execute_script("window.scrollBy(100, %d);" % (500))
+                open_wei_bo_btn_pos = self.wait_web_driver("xpath", '//*[@id="app"]/div[1]/aside/a').location
+                print("移动后 openWeiBoBtnPos=", open_wei_bo_btn_pos)
+                find_node_pos = self.get_new_outer_comment_list(i).location
+                print("移动后 footNode=", find_node_pos)
+                time.sleep(1)
+            if open_wei_bo_btn_pos["y"]>find_node_pos["y"]:
+                return True
+
+
     def real_op(self, start_index):
         commend_list = self.driver.find_elements_by_css_selector(".m-ctrl-box.m-box-center-a")
         print("发现 %d条 内容"%(len(commend_list)))
         if len(commend_list) == 0:
             self.move_page(0)
-        if len(commend_list) == 0: print("没有内容，可以评论")
+            commend_list = self.driver.find_elements_by_css_selector(".m-ctrl-box.m-box-center-a")
+        if len(commend_list) == 0:
+            print("没有内容，可以评论")
         for i in range(start_index, len(commend_list)):
             print("-----------------" + str(i) + "-----------------")
             # 下面重新获取"转发，评论，赞" 是因为进行下面一系列操作之后，返回到主页面时，内容已经改变，所以需要重新获取
@@ -267,14 +291,15 @@ class WeiBoOpClass(object):
             try:
                 out_comment_btn = new_commend_list[i].find_elements_by_css_selector(".m-diy-btn.m-box-col.m-box-center.m-box-center-a")[1]
 
-                try:
-                    out_comment_btn.click()  # 外部评论
-                except WebDriverException:
-                    traceback.print_exception(*sys.exc_info())
-                    self.move_page(1)
-                    out_comment_btn.click()
+                if self.is_have_open_wei_bo_btn(i):
+                    try:
+                        out_comment_btn.click()  # 外部评论
+                    except WebDriverException:
+                        traceback.print_exception(*sys.exc_info())
+                        self.move_page(1)
+                        out_comment_btn.click()
+                    print("已点击外部评论")
 
-                print("已点击外部评论")
                 # 只有小于1条的评论，直接写入评论
                 if not self.is_element_exist("xpath",
                                              '// *[ @ id = "app"] / div[1] / div / div[2] / div / div / footer / div[2]'):
@@ -313,15 +338,15 @@ class WeiBoOpClass(object):
 
         return len(commend_list)
 
-    def op_number(self, last_do_number,start_num):
-        print("开始执行第%d次" % (last_do_number + 1))
-        return self.real_op(start_num)
+    def op_number(self, last_do_index, last_start_num):
+        print("开始执行第%d次" % (last_do_index + 1))
+        return self.real_op(last_start_num)
 
     def op_packing(self):
         last_start_index = 0
         for i in range(6):
             try:
-               last_start_index = self.op_number(i, last_start_index)
+                last_start_index = self.op_number(i, last_start_index)
             except IndexError:
                 traceback.print_exception(*sys.exc_info())
                 break
@@ -353,7 +378,7 @@ while True:
     except Exception as e:
         traceback.print_exception(*sys.exc_info())
     finally:
-        print("------------防止发博太快，暂停评论----------------" )
+        print("------------防止发博太快，暂停评论----------------")
         classDriver.op_once_sleep()
         print("即将重新运行")
         if classDriver.driver:

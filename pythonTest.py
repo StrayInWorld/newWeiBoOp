@@ -1,13 +1,8 @@
-def op_number(i, a):
-    if i == 1:
-        return a + 10
-    else:
-        return
+def op_number():
+    a=10
+    if 1>0:
+        a=20
+    print(a)
 
+op_number()
 
-
-
-last_start_index = 0
-for i in range(6):
-    last_start_index = op_number(i, last_start_index)
-    print(last_start_index)
