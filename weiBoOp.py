@@ -212,7 +212,16 @@ class WeiBoOpClass(object):
             self.wait_web_driver("link_text",'发现')
             self.wait_web_driver("className","iconf_navbar_search").click()
             self.wait_web_driver("className","forSearch").send_keys(self.findKeyWord + Keys.RETURN)  # 搜索文字
-            self.op_packing()
+            if self.commentMode == 3:
+                self.driver.find_elements_by_class_name("m-text-box")[0].click()
+                print("等待加载内容")
+                time.sleep(8)
+            try:
+                self.op_packing()
+            except Exception:
+                traceback.print_exception(*sys.exc_info())
+                print("执行op_packing 抛出的异常")
+                self.driver.quit()
         except NoSuchElementException:
             traceback.print_exception(*sys.exc_info())
             print("search_comment 抛出的异常")
@@ -233,10 +242,6 @@ class WeiBoOpClass(object):
     def hot_wei_bo_comment(self):
         self.handler_click_unable(self.driver.find_element_by_link_text('发现'))  # 发现按钮
         self.handler_click_unable(self.driver.find_element_by_css_selector('.card.card4.line-around'))  # 热门微博按钮
-
-    # 超级话题
-    def super_huati_comment(self):
-        self.search_comment()
 
     # 休息时间
     def op_once_sleep(self):
@@ -365,7 +370,7 @@ class WeiBoOpClass(object):
 
 getUrl = "https://m.weibo.cn/"
 keyWord = "坤坤"
-commentMode = 1
+commentMode = 3
 commendSet = ("嗯嗯","呜呜")
 timeSleep = 15
 

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c331aa60-2012-4fa9-a4aa-f882c342c514" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/configComment.json" afterPath="$PROJECT_DIR$/configComment.json" />
-      <change beforePath="$PROJECT_DIR$/cookies.json" afterPath="$PROJECT_DIR$/cookies.json" />
       <change beforePath="$PROJECT_DIR$/weiBoOp.py" afterPath="$PROJECT_DIR$/weiBoOp.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,7 +21,7 @@
       <file leaf-file-name="event_firing_webdriver.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/selenium/webdriver/support/event_firing_webdriver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
+            <state relative-caret-position="0">
               <caret line="24" column="4" lean-forward="false" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
               <folding />
             </state>
@@ -43,21 +43,11 @@
       <file leaf-file-name="weiBoOp.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/weiBoOp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8856">
-              <caret line="328" column="3" lean-forward="true" selection-start-line="328" selection-start-column="3" selection-end-line="328" selection-end-column="3" />
+            <state relative-caret-position="135">
+              <caret line="207" column="29" lean-forward="true" selection-start-line="207" selection-start-column="29" selection-end-line="207" selection-end-column="29" />
               <folding>
                 <element signature="e#16#27#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="webdriver.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/selenium/webdriver/remote/webdriver.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="606" column="0" lean-forward="false" selection-start-line="606" selection-start-column="0" selection-end-line="606" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -66,7 +56,7 @@
         <entry file="file://$PROJECT_DIR$/configComment.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="19" lean-forward="false" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
+              <caret line="0" column="18" lean-forward="false" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -85,8 +75,8 @@
       <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="56" column="58" lean-forward="true" selection-start-line="56" selection-start-column="58" selection-end-line="56" selection-end-column="58" />
+            <state relative-caret-position="513">
+              <caret line="43" column="23" lean-forward="true" selection-start-line="43" selection-start-column="23" selection-end-line="43" selection-end-column="69" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -115,7 +105,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>real_op</find>
       <find>op_packing</find>
       <find>huati_comment</find>
       <find>click</find>
@@ -126,7 +115,6 @@
       <find>link_text</find>
       <find>className</find>
       <find>xpath</find>
-      <find>search_comment</find>
       <find>wait_web_driver</find>
       <find>start_sleep</find>
       <find>op_once_sleep</find>
@@ -145,6 +133,8 @@
       <find>等待登录</find>
       <find>弹框确定</find>
       <find>handler_alert</find>
+      <find>search_comment</find>
+      <find>super_huati_comment</find>
     </findStrings>
     <replaceStrings>
       <replace>driver</replace>
@@ -736,7 +726,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/selenium/webdriver/support/event_firing_webdriver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
+        <state relative-caret-position="0">
           <caret line="24" column="4" lean-forward="false" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
           <folding />
         </state>
@@ -783,10 +773,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/selenium/webdriver/remote/webdriver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="610" column="8" lean-forward="true" selection-start-line="610" selection-start-column="8" selection-end-line="610" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="56" column="58" lean-forward="true" selection-start-line="56" selection-start-column="58" selection-end-line="56" selection-end-column="58" />
+        <state relative-caret-position="513">
+          <caret line="43" column="23" lean-forward="true" selection-start-line="43" selection-start-column="23" selection-end-line="43" selection-end-column="69" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
           </folding>
@@ -796,23 +794,15 @@
     <entry file="file://$PROJECT_DIR$/configComment.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="19" lean-forward="false" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/selenium/webdriver/remote/webdriver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="606" column="0" lean-forward="false" selection-start-line="606" selection-start-column="0" selection-end-line="606" selection-end-column="0" />
+          <caret line="0" column="18" lean-forward="false" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/weiBoOp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8856">
-          <caret line="328" column="3" lean-forward="true" selection-start-line="328" selection-start-column="3" selection-end-line="328" selection-end-column="3" />
+        <state relative-caret-position="135">
+          <caret line="207" column="29" lean-forward="true" selection-start-line="207" selection-start-column="29" selection-end-line="207" selection-end-column="29" />
           <folding>
             <element signature="e#16#27#0" expanded="true" />
           </folding>
