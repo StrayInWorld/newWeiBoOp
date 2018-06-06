@@ -141,6 +141,12 @@ class WeiBoOpClass(object):
             print("点击时无法点击")
             time.sleep(2)
             element_target.click()
+        except TimeoutException:
+            traceback.print_exception(*sys.exc_info())
+            print("点击时无法点击")
+            time.sleep(2)
+            element_target.click()
+
 
     # 等待某个节点出现在执行
     def wait_web_driver(self,search_type, value):
@@ -161,10 +167,11 @@ class WeiBoOpClass(object):
             self.driver.quit()
 
     # 处理弹框
-    def handler_alert(self, sleep_time=300):
+    def handler_alert(self,alert_text, sleep_time=300):
         self.driver.find_element_by_xpath('//*[@id="app"]/div[2]/div[1]/div[2]/footer/div/a').click()
         print("弹框确定")
-        self.countAlert += 1
+        if alert_text == "发微博太多啦，休息一会儿吧!":
+            self.countAlert += 1
         if self.countAlert > 5:
             print("发博太多了，暂停时间：%s秒" % str(sleep_time))
             time.sleep(sleep_time)
@@ -262,15 +269,14 @@ class WeiBoOpClass(object):
         if(self.is_element_exist("xpath",'//*[@id="app"]/div[1]/aside/a')):
             open_wei_bo_btn_pos = self.wait_web_driver("xpath", '//*[@id="app"]/div[1]/aside/a').location  # 点击打开微博按钮
             find_node_pos=self.get_new_outer_comment_list(i).location
-            print("移动前 openWeiBoBtnPos=", open_wei_bo_btn_pos)
-            print("移动前 footNode=", find_node_pos)
+            # print("移动前 openWeiBoBtnPos=", open_wei_bo_btn_pos)
+            # print("移动前 footNode=", find_node_pos)
             while open_wei_bo_btn_pos["y"] - 100 < find_node_pos["y"]:
-                pos_y=open_wei_bo_btn_pos["y"]
                 self.driver.execute_script("window.scrollBy(100, %d);" % (500))
                 open_wei_bo_btn_pos = self.wait_web_driver("xpath", '//*[@id="app"]/div[1]/aside/a').location
-                print("移动后 openWeiBoBtnPos=", open_wei_bo_btn_pos)
+                #print("移动后 openWeiBoBtnPos=", open_wei_bo_btn_pos)
                 find_node_pos = self.get_new_outer_comment_list(i).location
-                print("移动后 footNode=", find_node_pos)
+                #print("移动后 footNode=", find_node_pos)
                 time.sleep(1)
             if open_wei_bo_btn_pos["y"]>find_node_pos["y"]:
                 return True
@@ -307,7 +313,8 @@ class WeiBoOpClass(object):
                     self.write_comment(self.commentSet)
                     # 弹框处理
                     if self.is_element_exist("xpath", '//*[@id="app"]/div[2]/div[1]/div[2]/footer/div/a'):
-                        self.handler_alert()
+                        alert_text = self.driver.find_element_by_xpath('//*[@id="app"]/div[2]/div[1]/div[2]/header/h3').text
+                        self.handler_alert(alert_text)
                         self.op_once_sleep()
                         continue
                     self.op_once_sleep()
@@ -320,7 +327,8 @@ class WeiBoOpClass(object):
                 self.write_comment(self.commentSet)
                 # 弹框处理
                 if self.is_element_exist("xpath", '//*[@id="app"]/div[2]/div[1]/div[2]/footer/div/a'):
-                    self.handler_alert()
+                    alert_text = self.driver.find_element_by_xpath('//*[@id="app"]/div[2]/div[1]/div[2]/header/h3').text
+                    self.handler_alert(alert_text)
                     self.op_once_sleep()
                     continue
 

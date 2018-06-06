@@ -2,24 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c331aa60-2012-4fa9-a4aa-f882c342c514" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/build/weiBoOp/base_library.zip" afterPath="$PROJECT_DIR$/build/weiBoOp/base_library.zip" />
-      <change beforePath="$PROJECT_DIR$/build/weiBoOp/out00-Analysis.toc" afterPath="$PROJECT_DIR$/build/weiBoOp/out00-Analysis.toc" />
-      <change beforePath="$PROJECT_DIR$/build/weiBoOp/out00-COLLECT.toc" afterPath="$PROJECT_DIR$/build/weiBoOp/out00-COLLECT.toc" />
-      <change beforePath="$PROJECT_DIR$/build/weiBoOp/out00-EXE.toc" afterPath="$PROJECT_DIR$/build/weiBoOp/out00-EXE.toc" />
-      <change beforePath="$PROJECT_DIR$/build/weiBoOp/out00-PKG.pkg" afterPath="$PROJECT_DIR$/build/weiBoOp/out00-PKG.pkg" />
-      <change beforePath="$PROJECT_DIR$/build/weiBoOp/out00-PYZ.pyz" afterPath="$PROJECT_DIR$/build/weiBoOp/out00-PYZ.pyz" />
-      <change beforePath="$PROJECT_DIR$/build/weiBoOp/out00-PYZ.toc" afterPath="$PROJECT_DIR$/build/weiBoOp/out00-PYZ.toc" />
-      <change beforePath="$PROJECT_DIR$/build/weiBoOp/weiBoOp.exe" afterPath="$PROJECT_DIR$/build/weiBoOp/weiBoOp.exe" />
       <change beforePath="$PROJECT_DIR$/configComment.json" afterPath="$PROJECT_DIR$/configComment.json" />
-      <change beforePath="$PROJECT_DIR$/configComment.spec" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/cookies.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/weiBoOp/base_library.zip" afterPath="$PROJECT_DIR$/dist/weiBoOp/base_library.zip" />
-      <change beforePath="$PROJECT_DIR$/dist/weiBoOp/weiBoOp.exe" afterPath="$PROJECT_DIR$/dist/weiBoOp/weiBoOp.exe" />
-      <change beforePath="$PROJECT_DIR$/pythonTest.py" afterPath="$PROJECT_DIR$/pythonTest.py" />
-      <change beforePath="$PROJECT_DIR$/test.py" afterPath="$PROJECT_DIR$/test.py" />
+      <change beforePath="$PROJECT_DIR$/cookies.json" afterPath="$PROJECT_DIR$/cookies.json" />
       <change beforePath="$PROJECT_DIR$/weiBoOp.py" afterPath="$PROJECT_DIR$/weiBoOp.py" />
-      <change beforePath="$PROJECT_DIR$/weiBoOp.spec" afterPath="$PROJECT_DIR$/weiBoOp.spec" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -58,11 +43,21 @@
       <file leaf-file-name="weiBoOp.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/weiBoOp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-662">
-              <caret line="347" column="8" lean-forward="false" selection-start-line="347" selection-start-column="8" selection-end-line="347" selection-end-column="8" />
+            <state relative-caret-position="8856">
+              <caret line="328" column="3" lean-forward="true" selection-start-line="328" selection-start-column="3" selection-end-line="328" selection-end-column="3" />
               <folding>
                 <element signature="e#16#27#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="webdriver.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/selenium/webdriver/remote/webdriver.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="197">
+              <caret line="606" column="0" lean-forward="false" selection-start-line="606" selection-start-column="0" selection-end-line="606" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -71,7 +66,7 @@
         <entry file="file://$PROJECT_DIR$/configComment.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+              <caret line="0" column="19" lean-forward="false" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -120,10 +115,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>huatiComment</find>
-      <find>move_page</find>
-      <find>driver.close()</find>
-      <find>except</find>
       <find>real_op</find>
       <find>op_packing</find>
       <find>huati_comment</find>
@@ -145,11 +136,15 @@
       <find>do_op</find>
       <find>is_element_exist</find>
       <find>已返回</find>
-      <find>handler_alert</find>
       <find>handler_click_unable</find>
       <find>handler_no_such_element_exception</find>
       <find>find_node_again</find>
       <find>search_comment 抛出的异常</find>
+      <find>移动后</find>
+      <find>sleep</find>
+      <find>等待登录</find>
+      <find>弹框确定</find>
+      <find>handler_alert</find>
     </findStrings>
     <replaceStrings>
       <replace>driver</replace>
@@ -165,8 +160,8 @@
       <list>
         <option value="$PROJECT_DIR$/guiCreate.py" />
         <option value="$PROJECT_DIR$/pythonTest.py" />
-        <option value="$PROJECT_DIR$/configComment.json" />
         <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/configComment.json" />
         <option value="$PROJECT_DIR$/weiBoOp.py" />
       </list>
     </option>
@@ -788,14 +783,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/configComment.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
@@ -806,10 +793,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/configComment.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="19" lean-forward="false" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/selenium/webdriver/remote/webdriver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="606" column="0" lean-forward="false" selection-start-line="606" selection-start-column="0" selection-end-line="606" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/weiBoOp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-662">
-          <caret line="347" column="8" lean-forward="false" selection-start-line="347" selection-start-column="8" selection-end-line="347" selection-end-column="8" />
+        <state relative-caret-position="8856">
+          <caret line="328" column="3" lean-forward="true" selection-start-line="328" selection-start-column="3" selection-end-line="328" selection-end-column="3" />
           <folding>
             <element signature="e#16#27#0" expanded="true" />
           </folding>
