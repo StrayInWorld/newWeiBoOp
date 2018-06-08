@@ -23,6 +23,9 @@
   ('pyiboot01_bootstrap',
    'G:\\newWeiBo\\venv\\lib\\site-packages\\PyInstaller\\loader\\pyiboot01_bootstrap.py',
    'PYSOURCE'),
+  ('pyi_rth_win32comgenpy',
+   'G:\\newWeiBo\\venv\\lib\\site-packages\\PyInstaller\\loader\\rthooks\\pyi_rth_win32comgenpy.py',
+   'PYSOURCE'),
   ('weiBoOp', 'G:\\newWeiBo\\weiBoOp.py', 'PYSOURCE'),
   ('weiBoOp.exe.manifest',
    'G:\\newWeiBo\\build\\weiBoOp\\weiBoOp.exe.manifest',
@@ -30,7 +33,7 @@
  [],
  False,
  False,
- 1528219227,
+ 1528384929,
  [('run.exe',
    'G:\\newWeiBo\\venv\\lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit\\run.exe',
    'EXECUTABLE')])

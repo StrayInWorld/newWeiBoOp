@@ -1,8 +1,3 @@
-def op_number():
-    a=10
-    if 1>0:
-        a=20
-    print(a)
-
-op_number()
+# coding=utf-8
+import os
 
