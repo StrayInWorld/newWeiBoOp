@@ -13,8 +13,8 @@ missing module named 'java.lang' - imported by platform, xml.sax._exceptions, G:
 missing module named vms_lib - imported by platform, G:\newWeiBo\weiBoOp.py
 missing module named termios - imported by tty, getpass, G:\newWeiBo\weiBoOp.py
 missing module named grp - imported by shutil, tarfile, G:\newWeiBo\weiBoOp.py
-missing module named pwd - imported by posixpath, shutil, tarfile, http.server, webbrowser, netrc, getpass, G:\newWeiBo\weiBoOp.py
 missing module named 'org.python' - imported by copy, xml.sax, G:\newWeiBo\weiBoOp.py
+missing module named pwd - imported by posixpath, shutil, tarfile, http.server, webbrowser, netrc, getpass, G:\newWeiBo\weiBoOp.py
 missing module named _dummy_threading - imported by dummy_threading, G:\newWeiBo\weiBoOp.py
 missing module named urllib2 - imported by selenium.webdriver.common.utils, selenium.webdriver.remote.remote_connection, selenium.webdriver.common.service
 missing module named StringIO - imported by selenium.webdriver.remote.webelement

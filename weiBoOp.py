@@ -102,13 +102,9 @@ class WeiBoOpClass(object):
 
         if len(s) == 0:
             print("元素未找到:%s" % css)
-            end = time.time()
-            print("执行了：%s",end-start)
             return False
         elif len(s) == 1:
             print("找到了")
-            end = time.time()
-            print("执行了：%s",end-start)
             return True
         else:
             print("找到%s个元素：%s" % (len(s), css))
@@ -177,12 +173,17 @@ class WeiBoOpClass(object):
             self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         elif height == 1:  # 表示默认移动距离
             self.driver.execute_script("window.scrollTo(0, 50);")
-        print("执行了移动鼠标")
+        #print("执行了移动鼠标")
 
     # 发表评论
     def write_comment(self, word):
         self.do_a_op_sleep()
         self.wait_web_driver("tag_name","textarea").send_keys(random.choice(word))  # 评论内容
+        self.do_a_op_sleep()
+        if self.is_element_exist("class_name",'m-search'):
+            self.driver.find_element_by_class_name('m-search').click()
+            self.driver.find_element_by_css_selector('.search-cancel.m-box-center-a').click()
+            self.do_a_op_sleep()
         print("已发表评论")
         self.wait_web_driver("xpath",'//*[@id="app"]/div[1]/div/header/div[3]/a').click()
         print("已发送评论")
@@ -204,11 +205,11 @@ class WeiBoOpClass(object):
                 self.op_packing()
             except Exception:
                 traceback.print_exception(*sys.exc_info())
-                print("执行op_packing 抛出的异常")
+                #print("执行op_packing 抛出的异常")
                 self.driver.quit()
         except NoSuchElementException:
             traceback.print_exception(*sys.exc_info())
-            print("search_comment 抛出的异常.cookies存在，但是过期了")
+            print("cookies存在，但是过期了,需要重新登录")
             self.write_to_cookie_file()
         except TimeoutException:
             traceback.print_exception(*sys.exc_info())
@@ -217,7 +218,6 @@ class WeiBoOpClass(object):
                 print("cookie无效，需要重新登录")
                 self.write_to_cookie_file()
             elif WeiBoOpClass.waitLoginNum % 2 == 0:
-                print("search_comment 抛出的异常：", e)
                 print("进入到了其他界面,即将重新打开页面")
                 self.driver.quit()
 
@@ -234,7 +234,7 @@ class WeiBoOpClass(object):
 
     # 执行一个动作停止时间
     def do_a_op_sleep(self):
-        print("执行一个动作休息的时间%d" % self.sleep_time_for_action)
+        #print("执行一个动作休息的时间%d" % self.sleep_time_for_action)
         time.sleep(self.sleep_time_for_action)  # 防止发博太快了
 
     # 再次查找元素
@@ -337,6 +337,7 @@ class WeiBoOpClass(object):
         return len(commend_list)
 
     def op_number(self, last_do_index, last_start_num):
+        print("------------------------------------")
         print("开始执行第%d次" % (last_do_index + 1))
         return self.real_op(last_start_num)
 
@@ -367,7 +368,7 @@ def write_disk_to_file():
 getUrl = "https://m.weibo.cn/"
 keyWord = "坤坤"
 commentMode = 1
-commendSet = ("嗯嗯", "呜呜")
+commendSet = ("卡", "up","嗯@蔡徐坤","嗯嗯@蔡徐坤","嗯嗯嗯@蔡徐坤")
 timeSleep = 15
 
 if os.path.isfile("configComment.json"):
